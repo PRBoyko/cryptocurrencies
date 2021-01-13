@@ -1,0 +1,13 @@
+.displaytable{
+display: flex
+}
+.displaytableheaders{
+    margin-left: 20px;
+}
+
+.centertable{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+}

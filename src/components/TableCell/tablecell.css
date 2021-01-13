@@ -1,0 +1,16 @@
+.tableborder{
+    border: 1px solid black;
+    table-layout: fixed
+
+}
+
+table{
+    width: 300px;
+    text-align:center
+}
+
+
+
+.isFavorite{
+    background-color: #f0f037;
+}
