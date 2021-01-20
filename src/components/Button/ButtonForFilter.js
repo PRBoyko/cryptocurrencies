@@ -4,7 +4,7 @@ import './Button.css';
 const ButtonForFilter = (props) => {
     return (
         <div>
-            <button className='btn btn-secondary buttonposition'>{props.btnname}</button>
+            <button onClick={props.onClick} style={props.style} className='btn buttonposition'>{props.btnname}</button>
         </div>
     );
 }

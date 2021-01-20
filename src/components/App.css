@@ -17,11 +17,6 @@ th,td {
     border: none;
 }
 
-.displaybuttons{
-    text-align: center;
-    display: flex;
-}
-
 .editbuttoncentred{
     display: flex;
     justify-content: center;

@@ -4,10 +4,12 @@ import './App.css';
 import ButtonForFilter from '../components/Button/ButtonForFilter'
 import axios from "axios";
 import Favorite from "./Favorite/Favorite";
+import ItemStatus from "./ItemStatus/ItemStatus";
 
 
 function App() {
    const [currencyData,setcurrencyData] =useState([]);
+   const [filter, setFilter] = useState('all');
 
 
     useEffect(() => {
@@ -38,14 +40,26 @@ function App() {
 
     }
 
+   const  filterItems = (items, filter) => {
+        if (filter==='all'){
+            return items
+        }
+
+        if (filter==='favorite'){
+            return items.filter(item=>item.onfavorite)
+        }
+
+   }
+
+   const onFilterChange = (filter)=>{
+        setFilter(filter)
+    }
+
+   const visibleItems = filterItems(currencyData, filter);
 
       return(
         <div >
-            <div className='displaybuttons'>
-                <ButtonForFilter   btnname='Show All'/>
-                <ButtonForFilter  btnname='Show Favorite'/>
-            </div>
-
+            <ItemStatus filter={filter} onFilterChange={onFilterChange}/>
             <table className='center'>
                 <thead>
                 <tr>
@@ -56,7 +70,7 @@ function App() {
                 </tr>
                 </thead>
                 <tbody>
-                    {currencyData.map(item=>{
+                    {visibleItems.map(item=>{
                         return(
                             <tr key={item.id} >
                                <td className='borderoff'><Favorite id={item.id} style={item.onfavorite ? {color: 'yellow'} : {color: 'grey'}} changeFavorite={changeFavorite}/></td>
