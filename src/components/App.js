@@ -1,10 +1,13 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+
+
 import TableCell from "./TableCell/TableCell";
-import './App.css';
 import ButtonForFilter from '../components/Button/ButtonForFilter'
-import axios from "axios";
 import Favorite from "./Favorite/Favorite";
 import ItemStatus from "./ItemStatus/ItemStatus";
+
+import './App.css';
+import { getCurrencyDataNew } from "../constants/getData";
 
 
 function App() {
@@ -12,20 +15,11 @@ function App() {
    const [filter, setFilter] = useState('all');
 
 
-    useEffect(() => {
-        const getCurrencyData = () =>{
-            axios.get('https://data.messari.io/api/v1/assets?fields=id,slug,symbol,metrics/market_data/price_usd').
-            then((response)=>{
-                const currencyData =response.data.data.map(item => {
-                    item.onfavorite = false;
-                    return item;
-                })
-
-                setcurrencyData(currencyData)
-            }).catch(err=>console.log(err))
-        }
-        getCurrencyData();
+    useEffect(async () => {
+        setcurrencyData(await getCurrencyDataNew());
     }, []);
+
+
 
     const changeFavorite = (id) => {
         const newCryptos = currencyData.map((item) => {
