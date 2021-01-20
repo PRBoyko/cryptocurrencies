@@ -1,0 +1,6 @@
+.buttonposition{
+    width: fit-content;
+    margin-left: 20px;
+    margin-top: 10px;
+    display: flex;
+}
