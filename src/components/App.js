@@ -75,6 +75,10 @@ function App() {
 
     const saveData = ()=>{
         setchangeColumns(!changeColumns)
+        setShowColumn(prevState => {
+            return    prevState.map((item, index)=>item=showCheckboxColumn[index].isChecked)
+        })
+
 
 
 }
@@ -87,9 +91,9 @@ function App() {
                 <thead>
                 <tr>
                     <th className='borderoff'></th>
-                    <th><TableCell data='Slug'/></th>
-                    <th><TableCell data='Symbol'/></th>
-                    <th><TableCell data='Price_USD'/></th>
+                    {showColumn[0] && <th><TableCell data='Slug'/></th>}
+                    {showColumn[1] && <th><TableCell data='Symbol'/></th>}
+                    {showColumn[2] &&<th><TableCell data='Price_USD'/></th>}
                 </tr>
                 </thead>
                 <tbody>
@@ -97,8 +101,8 @@ function App() {
                         return(
                             <tr key={item.id} >
                                <td className='borderoff'><Favorite id={item.id} style={item.onfavorite ? {color: 'yellow'} : {color: 'grey'}} changeFavorite={changeFavorite}/></td>
-                                {showColumn[0] ? <td><TableCell data={item.slug.toUpperCase()}/></td> : null}
-                                {showColumn[1] ? <td><TableCell data={item.symbol}/></td> : null}
+                                {showColumn[0] && <td><TableCell data={item.slug.toUpperCase()}/></td>}
+                                {showColumn[1] && <td><TableCell data={item.symbol}/></td>}
                                 {showColumn[2] &&<td><TableCell data={item.metrics.market_data.price_usd.toFixed(2)}/></td>}
                             </tr>
                         )
@@ -106,6 +110,8 @@ function App() {
 
 
                     })}
+
+
 
                     {changeColumns ? <tr >
                                             <td className='borderoff'></td>
@@ -117,7 +123,9 @@ function App() {
                                             id={item.name}
                                             name={item.name}
                                             checked={item.isChecked}
-                                            changeCheck={changeCheck} />
+                                            changeCheck={changeCheck}
+                                            value={item.name}
+                                        />
                                     </td>
                                 )
 

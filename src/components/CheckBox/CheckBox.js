@@ -4,15 +4,14 @@ const CheckBox = (props) => {
 
 
     return (
-
-
+        <div>
         <input
             name={props.name}
             type="checkbox"
             checked={props.checked}
-            onClick={()=>{props.changeCheck(props.id)} }
-        />
-
+            onChange={()=>{props.changeCheck(props.id)} }/>
+            <label>{props.value}</label>
+        </div>
     );
 };
 
