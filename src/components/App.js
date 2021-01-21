@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-
 import TableCell from "./TableCell/TableCell";
 import ButtonForFilter from '../components/Button/ButtonForFilter'
 import Favorite from "./Favorite/Favorite";
 import ItemStatus from "./ItemStatus/ItemStatus";
+import CheckBox from "./CheckBox/CheckBox";
+
 
 import './App.css';
 import { getCurrencyDataNew } from "../constants/getData";
@@ -13,6 +14,10 @@ import { getCurrencyDataNew } from "../constants/getData";
 function App() {
    const [currencyData,setcurrencyData] =useState([]);
    const [filter, setFilter] = useState('all');
+   const [changeColumns,setchangeColumns] = useState(false);
+   const [showCheckboxColumn, setshowCheckboxColumn] = useState([{name:'Slug', isChecked:true},{name:'Symbol', isChecked:true},{name:'Price_USD', isChecked:true}]);
+   const [showColumn, setShowColumn] = useState([true, true, true])
+
 
 
     useEffect(async () => {
@@ -34,6 +39,23 @@ function App() {
 
     }
 
+    const changeCheck = (id) => {
+        const newCheck = showCheckboxColumn.map((item) => {
+            if (id === item.name) {
+                item.isChecked = !item.isChecked
+            }
+
+            return item;
+        })
+
+        setshowCheckboxColumn(newCheck);
+
+    }
+
+
+
+
+
    const  filterItems = (items, filter) => {
         if (filter==='all'){
             return items
@@ -50,6 +72,13 @@ function App() {
     }
 
    const visibleItems = filterItems(currencyData, filter);
+
+    const saveData = ()=>{
+        setchangeColumns(!changeColumns)
+
+
+}
+
 
       return(
         <div >
@@ -68,20 +97,40 @@ function App() {
                         return(
                             <tr key={item.id} >
                                <td className='borderoff'><Favorite id={item.id} style={item.onfavorite ? {color: 'yellow'} : {color: 'grey'}} changeFavorite={changeFavorite}/></td>
-                                <td><TableCell data={item.slug.toUpperCase()}/></td>
-                                <td><TableCell data={item.symbol}/></td>
-                                <td><TableCell data={item.metrics.market_data.price_usd.toFixed(2)}/></td>
+                                {showColumn[0] ? <td><TableCell data={item.slug.toUpperCase()}/></td> : null}
+                                {showColumn[1] ? <td><TableCell data={item.symbol}/></td> : null}
+                                {showColumn[2] &&<td><TableCell data={item.metrics.market_data.price_usd.toFixed(2)}/></td>}
                             </tr>
                         )
 
 
+
                     })}
+
+                    {changeColumns ? <tr >
+                                            <td className='borderoff'></td>
+                            {showCheckboxColumn.map(item=>{
+                                return(
+                                    <td className='borderoff'>
+                                        <CheckBox
+                                            key={item.name}
+                                            id={item.name}
+                                            name={item.name}
+                                            checked={item.isChecked}
+                                            changeCheck={changeCheck} />
+                                    </td>
+                                )
+
+                            })}
+
+
+                    </tr> : null}
 
                 </tbody>
             </table>
 
             <div className='editbuttoncentred'>
-                <ButtonForFilter  btnname='Edit Table'/>
+                <ButtonForFilter onClick={saveData} btnname={changeColumns ? 'Save changes' :'Edit Table' }/>
             </div>
 
 
