@@ -1,10 +1,14 @@
-table{
+table {
     margin-top: 2rem;
 }
 
-th,td {
+th, td {
     border: 2px solid;
     text-align: center;
+}
+
+.cell-size{
+    width: 200px;
 }
 
 
@@ -13,11 +17,15 @@ th,td {
     margin-right: auto;
 }
 
-.borderoff{
+.border-off {
     border: none;
 }
 
-.editbuttoncentred{
+.edit-button-centred {
     display: flex;
     justify-content: center;
+}
+
+.center-loader{
+    text-align: center;
 }
