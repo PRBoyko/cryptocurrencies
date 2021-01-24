@@ -26,9 +26,10 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       setcurrencyData(await getCurrencyData());
+      changeLoaded();
     };
     fetchData();
-    changeLoaded();
+
   }, []);
 
   const changeFavorite = (id) => {
