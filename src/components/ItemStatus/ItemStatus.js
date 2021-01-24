@@ -1,30 +1,38 @@
-import React, {useState} from "react";
-import ButtonForFilter from "../ButtonForFilter/ButtonForFilter";
-import { BrowserRouter, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { BrowserRouter, Link } from "react-router-dom";
 
-import './item-status.css'
+import ButtonForFilter from "../ButtonForFilter";
+import { buttons } from "../../constants/buttons";
 
+import "./item-status.css";
 
-const ItemStatus = (props) => {
+const ItemStatus = ({ onFilterChange, filter }) => {
+  const [button] = useState(buttons);
 
-    const [button] = useState([{name:'Show All', label:'all'}, {name:'Show Favorite', label:'favorite'} ])
-
-    return (
-
-        <BrowserRouter>
-        <div className='btn-group'>
-            {button.map((item)=>{
-                const isActive= props.filter===item.label
-                return (
-                 <Link className='removedecoration' to={`/${item.label}`}>
-                     <ButtonForFilter onClick={()=>props.onFilterChange(item.label)} style={isActive ? {backgroundColor:'green'} : {backgroundColor:'gray'}} key={item.name} btnname={item.name}/>
-                 </Link>
-                )
-                })}
-        </div>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <div className="btn-group">
+        {button.map((item) => {
+          const { label, name } = item;
+          const isActive = filter === item.label;
+          return (
+            <Link key={label} className="remove-decoration" to={`/${label}`}>
+              <ButtonForFilter
+                onClick = {() => onFilterChange(label)}
+                style = {
+                  isActive
+                    ? { backgroundColor: "green" }
+                    : { backgroundColor: "gray" }
+                }
+                key = {name}
+                btnText = {name}
+              />
+            </Link>
+          );
+        })}
+      </div>
+    </BrowserRouter>
+  );
 };
 
 export default ItemStatus;
-

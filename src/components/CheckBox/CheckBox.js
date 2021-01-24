@@ -1,18 +1,21 @@
-import React from 'react';
+import React from "react";
 
 const CheckBox = (props) => {
+  const { name, checked, changeCheck, id, value } = props;
 
-
-    return (
-        <div>
-        <input
-            name={props.name}
-            type="checkbox"
-            checked={props.checked}
-            onChange={()=>{props.changeCheck(props.id)} }/>
-            <label>{props.value}</label>
-        </div>
-    );
+  return (
+    <div>
+      <input
+        name = {name}
+        type = "checkbox"
+        checked = {checked}
+        onChange = {() => {
+          changeCheck(id);
+        }}
+      />
+      <label>{value}</label>
+    </div>
+  );
 };
 
 export default CheckBox;

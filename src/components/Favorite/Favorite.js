@@ -1,11 +1,16 @@
-import React from 'react';
-import StarIcon from '@material-ui/icons/Star';
+import React from "react";
 
-const Favorite = (props) => {
-    return (
-          <StarIcon  style={props.style} onClick={()=>{props.changeFavorite(props.id)}} />
+import StarIcon from "@material-ui/icons/Star";
 
-    );
+const Favorite = ({ style, changeFavorite, id }) => {
+  return (
+    <StarIcon
+      style={style}
+      onClick={() => {
+        changeFavorite(id);
+      }}
+    />
+  );
 };
 
 export default Favorite;

@@ -1,17 +1,23 @@
-import React from 'react';
-import './Button.css';
+import React from "react";
+
+import "./button-for-filter.css";
 
 const ButtonForFilter = (props) => {
-    return (
-        <div>
-            <button form={props.form}
-                    type={props.type}
-                    onSubmit={props.onSubmit}
-                    onClick={props.onClick}
-                    style={props.style}
-                    className='btn buttonposition'>{props.btnname}</button>
-        </div>
-    );
-}
+  const { form, type, onSubmit, onClick, style, btnText } = props;
+  return (
+    <div>
+      <button
+        form = {form}
+        type = {type}
+        onSubmit = {onSubmit}
+        onClick = {onClick}
+        style = {style}
+        className = "btn button-position"
+      >
+        {btnText}
+      </button>
+    </div>
+  );
+};
 
 export default ButtonForFilter;

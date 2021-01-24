@@ -1,13 +1,9 @@
-import React from 'react';
-import './table-cell.css'
+import React from "react";
 
-const TableCell = (props) => {
-    return (
-       <span className='cellposition'>
-           {props.data}
-       </span>
+import "./table-cell.css";
 
-    );
+const TableCell = ({ data }) => {
+  return <span className = "cell-position">{data}</span>;
 };
 
 export default TableCell;
