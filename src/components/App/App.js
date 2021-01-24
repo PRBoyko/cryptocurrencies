@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import TableCell from "./TableCell/TableCell";
-import ButtonForFilter from '../components/Button/ButtonForFilter'
-import Favorite from "./Favorite/Favorite";
-import ItemStatus from "./ItemStatus/ItemStatus";
-import CheckBox from "./CheckBox/CheckBox";
+import TableCell from "../TableCell";
+import ButtonForFilter from "../ButtonForFilter"
+import Favorite from "../Favorite";
+import ItemStatus from "../ItemStatus";
+import CheckBox from "../CheckBox/";
 
 
-import './App.css';
-import { getCurrencyDataNew } from "../constants/getData";
+import "./App.css";
+import { getCurrencyDataNew } from "../../constants/getData";
 
 
 function App() {
@@ -51,9 +51,6 @@ function App() {
         setshowCheckboxColumn(newCheck);
 
     }
-
-
-
 
 
    const  filterItems = (items, filter) => {
@@ -103,7 +100,7 @@ function App() {
                                <td className='borderoff'><Favorite id={item.id} style={item.onfavorite ? {color: 'yellow'} : {color: 'grey'}} changeFavorite={changeFavorite}/></td>
                                 {showColumn[0] && <td><TableCell data={item.slug.toUpperCase()}/></td>}
                                 {showColumn[1] && <td><TableCell data={item.symbol}/></td>}
-                                {showColumn[2] &&<td><TableCell data={item.metrics.market_data.price_usd.toFixed(2)}/></td>}
+                                {showColumn[2] &&<td><TableCell data={item.metrics}/></td>}
                             </tr>
                         )
 

@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import ButtonForFilter from "../Button/ButtonForFilter";
+import ButtonForFilter from "../ButtonForFilter/ButtonForFilter";
 import { BrowserRouter, Link } from 'react-router-dom';
 
-import './itemstatus.css'
+import './item-status.css'
 
 
 const ItemStatus = (props) => {

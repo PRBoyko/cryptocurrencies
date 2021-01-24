@@ -1,5 +1,5 @@
 import React from 'react';
-import './tablecell.css'
+import './table-cell.css'
 
 const TableCell = (props) => {
     return (
