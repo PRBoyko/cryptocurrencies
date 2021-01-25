@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FadeLoader } from "react-spinners";
 
-import { getCurrencyData } from "../../constants/getData";
+import { getCurrencyData } from "../../Services/getData";
 import TableCell from "../TableCell";
 import ButtonForFilter from "../ButtonForFilter";
 import Favorite from "../Favorite";
@@ -17,25 +17,28 @@ function App() {
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
   const [loaded, setLoading] = useState(false);
 
-  const changeLoaded = () => {
-    setLoading(!loaded);
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       setcurrencyData(await getCurrencyData());
-      changeLoaded();
+      setLoading(true);
     };
     fetchData();
+
   }, []);
+
 
   const changeFavorite = (id) => {
     const data = currencyData.map((item) => {
       if (id === item.id) {
         item.onFavorite = !item.onFavorite;
       }
+
       return item;
+
     });
+    localStorage.setItem('favorite', JSON.stringify(data.filter(item=>item.onFavorite)));
+
     setcurrencyData(data);
   };
 
@@ -126,8 +129,7 @@ function App() {
                     <td className="border-off">
                       {showStars() && (
                         <Favorite
-                          key={item.id}
-                          id={item.id}
+                           id={item.id}
                           style={
                             item.onFavorite
                               ? { color: "yellow" }
