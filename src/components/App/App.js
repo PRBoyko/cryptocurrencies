@@ -6,7 +6,6 @@ import TableCell from "../TableCell";
 import ButtonForFilter from "../ButtonForFilter";
 import Favorite from "../Favorite";
 import ItemStatus from "../ItemStatus";
-import CheckBox from "../CheckBox/";
 import { checkBoxes } from "../../constants/checkboxes";
 
 import "./app.css";
@@ -16,7 +15,6 @@ function App() {
   const [filter, setFilter] = useState("all");
   const [changeColumns, setchangeColumns] = useState(false);
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
-  const [showColumn, setShowColumn] = useState([true, true, true]);
   const [loaded, setLoading] = useState(false);
 
   const changeLoaded = () => {
@@ -29,7 +27,6 @@ function App() {
       changeLoaded();
     };
     fetchData();
-
   }, []);
 
   const changeFavorite = (id) => {
@@ -40,16 +37,6 @@ function App() {
       return item;
     });
     setcurrencyData(data);
-  };
-
-  const changeCheck = (id) => {
-    const newCheck = showCheckboxColumn.map((item) => {
-      if (id === item.name) {
-        item.isChecked = !item.isChecked;
-      }
-      return item;
-    });
-    setshowCheckboxColumn(newCheck);
   };
 
   const filterItems = (items, filter) => {
@@ -68,12 +55,38 @@ function App() {
   const visibleItems = filterItems(currencyData, filter);
 
   const saveData = () => {
+    let checkStatus = showCheckboxColumn.map((item) => item.isChecked);
     setchangeColumns(!changeColumns);
-    setShowColumn((prevState) => {
-      return prevState.map(
-        (item, index) => (item = showCheckboxColumn[index].isChecked)
+
+    if (Array.from(document.querySelectorAll("input")).length < 1) {
+      setshowCheckboxColumn(showCheckboxColumn);
+    } else {
+      checkStatus = Array.from(document.querySelectorAll("input")).map(
+        (item) => {
+          if (item["checked"]) {
+            return true;
+          } else {
+            return false;
+          }
+        }
       );
-    });
+
+      const newCheck = showCheckboxColumn.map((item, index) => {
+        showCheckboxColumn[index].isChecked = checkStatus[index];
+
+        return item;
+      });
+
+      setshowCheckboxColumn(newCheck);
+    }
+  };
+
+  const showStars = () => {
+    return (
+      showCheckboxColumn
+        .map((item) => item.isChecked)
+        .filter((item) => item !== false).length > 0
+    );
   };
 
   return (
@@ -88,18 +101,18 @@ function App() {
           <table className="center">
             <thead>
               <tr>
-                <th className="border-off"></th>
-                {showColumn[0] && (
+                {showStars() && <th className="border-off"></th>}
+                {showCheckboxColumn[0].isChecked && (
                   <th className="cell-size">
                     <TableCell data="Slug" />
                   </th>
                 )}
-                {showColumn[1] && (
+                {showCheckboxColumn[1].isChecked && (
                   <th className="cell-size">
                     <TableCell data="Symbol" />
                   </th>
                 )}
-                {showColumn[2] && (
+                {showCheckboxColumn[2].isChecked && (
                   <th className="cell-size">
                     <TableCell data="Price_USD" />
                   </th>
@@ -111,27 +124,30 @@ function App() {
                 return (
                   <tr key={item.id}>
                     <td className="border-off">
-                      <Favorite
-                        id={item.id}
-                        style={
-                          item.onFavorite
-                            ? { color: "yellow" }
-                            : { color: "grey" }
-                        }
-                        changeFavorite={changeFavorite}
-                      />
+                      {showStars() && (
+                        <Favorite
+                          key={item.id}
+                          id={item.id}
+                          style={
+                            item.onFavorite
+                              ? { color: "yellow" }
+                              : { color: "grey" }
+                          }
+                          changeFavorite={changeFavorite}
+                        />
+                      )}
                     </td>
-                    {showColumn[0] && (
+                    {showCheckboxColumn[0].isChecked && (
                       <td className="cell-size">
                         <TableCell data={item.slug.toUpperCase()} />
                       </td>
                     )}
-                    {showColumn[1] && (
+                    {showCheckboxColumn[1].isChecked && (
                       <td className="cell-size">
                         <TableCell data={item.symbol} />
                       </td>
                     )}
-                    {showColumn[2] && (
+                    {showCheckboxColumn[2].isChecked && (
                       <td className="cell-size">
                         <TableCell data={item.metrics} />
                       </td>
@@ -147,16 +163,12 @@ function App() {
                     const { name, isChecked } = item;
                     return (
                       <td className="border-off">
-                        <form>
-                          <CheckBox
-                            key={name}
-                            id={name}
-                            name={name}
-                            checked={isChecked}
-                            changeCheck={changeCheck}
-                            value={name}
-                          />
-                        </form>
+                        <input
+                          name={name}
+                          type="checkbox"
+                          defaultChecked={isChecked}
+                        />
+                        <label>{name}</label>
                       </td>
                     );
                   })}
