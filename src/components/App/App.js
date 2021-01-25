@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { FadeLoader } from "react-spinners";
 
-import { getCurrencyData } from "../../Services/getData";
+import { getCurrencyData } from "../../services/getData";
 import TableCell from "../TableCell";
 import ButtonForFilter from "../ButtonForFilter";
 import Favorite from "../Favorite";
 import ItemStatus from "../ItemStatus";
 import { checkBoxes } from "../../constants/checkboxes";
 
-import "./app.css";
+import "./App.css";
 
 function App() {
   const [currencyData, setcurrencyData] = useState([]);
   const [filter, setFilter] = useState("all");
-  const [changeColumns, setchangeColumns] = useState(false);
+  const [changeColumns, setChangeColumns] = useState(false);
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
   const [loaded, setLoading] = useState(false);
 
@@ -38,7 +38,6 @@ function App() {
 
     });
     localStorage.setItem('favorite', JSON.stringify(data.filter(item=>item.onFavorite)));
-
     setcurrencyData(data);
   };
 
@@ -51,15 +50,11 @@ function App() {
     }
   };
 
-  const onFilterChange = (filter) => {
-    setFilter(filter);
-  };
-
   const visibleItems = filterItems(currencyData, filter);
 
   const saveData = () => {
     let checkStatus = showCheckboxColumn.map((item) => item.isChecked);
-    setchangeColumns(!changeColumns);
+    setChangeColumns(!changeColumns);
 
     if (Array.from(document.querySelectorAll("input")).length < 1) {
       setshowCheckboxColumn(showCheckboxColumn);
@@ -94,7 +89,7 @@ function App() {
 
   return (
     <div>
-      <ItemStatus filter={filter} onFilterChange={onFilterChange} />
+      <ItemStatus filter={filter} onFilterChange={(filter)=>setFilter(filter)} />
       {!loaded ? (
         <div className="center-loader">
           <FadeLoader color={"#4336D7"} />
