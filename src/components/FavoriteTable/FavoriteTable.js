@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import CryptoTable from "../CryptoTable";
 
 const FavoriteTable = () => {
-    const[data,setData] = useState(JSON.parse(localStorage.getItem("favorite")));
+  const [data, setData] = useState(
+    JSON.parse(localStorage.getItem("favorite"))
+  );
+
 
     return (
         <CryptoTable
@@ -12,6 +15,7 @@ const FavoriteTable = () => {
             favorite={true}
         />
     );
+
 };
 
 export default FavoriteTable;

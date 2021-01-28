@@ -1,36 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import ButtonForFilter from "../ButtonForFilter";
-import { buttons } from "../../constants/buttons";
-
 import "./item-status.css";
 
-const ItemStatus = ({ onFilterChange, filter }) => {
-  const [button] = useState(buttons);
-
+const ItemStatus = () => {
   return (
-        <div className="btn-group">
-        {button.map((item) => {
-          const { label, name } = item;
-          const isActive = filter === item.label;
-          return (
-            <Link key={label} className="remove-decoration" to={`/${label}`}>
-              <ButtonForFilter
-                onClick = {() => onFilterChange(label)}
-                style = {
-                  isActive
-                    ? { backgroundColor: "green" }
-                    : { backgroundColor: "gray" }
-                }
-                key = {name}
-                btnText = {name}
-              />
-            </Link>
-          );
-        })}
-      </div>
-
+    <div className="btn-group">
+      <Link className={"remove-decoration"} to={"/"}>
+        <button className={"btn button-position"}>Show All</button>
+      </Link>
+      <Link className={"remove-decoration"} to={"/favorite"}>
+        <button className={"btn button-position"}>Favorite</button>
+      </Link>
+    </div>
   );
 };
 
