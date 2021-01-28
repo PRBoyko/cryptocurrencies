@@ -7,7 +7,7 @@ import FavoriteTable from "../FavoriteTable";
 const App = () => {
     return (
         <BrowserRouter>
-          <Route path={'/'} component={Main}/>
+          <Route exact path={'/'} component={Main}/>
           <Route path={'/all'} component={Main}/>
           <Route path={'/favorite'} component={FavoriteTable}/>
 

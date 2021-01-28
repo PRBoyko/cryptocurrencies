@@ -9,6 +9,7 @@ const FavoriteTable = () => {
             currencyData={data}
             setcurrencyData={setData}
             loaded={true}
+            favorite={true}
         />
     );
 };

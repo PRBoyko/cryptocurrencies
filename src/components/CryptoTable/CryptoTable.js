@@ -32,12 +32,13 @@ const CryptoTable = (props) => {
     };
 
     const filterItems = (items, filter) => {
-        if (filter === "all") {
-            return items;
-        }
-        if (filter === "favorite") {
+        if (props.favorite) {
             return items.filter((item) => item.onFavorite);
         }
+        else  {
+            return items;
+        }
+
     };
 
     const visibleItems = filterItems(props.currencyData, filter);
