@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import ButtonForFilter from "../ButtonForFilter";
 import { buttons } from "../../constants/buttons";
@@ -10,8 +10,7 @@ const ItemStatus = ({ onFilterChange, filter }) => {
   const [button] = useState(buttons);
 
   return (
-    <BrowserRouter>
-      <div className="btn-group">
+        <div className="btn-group">
         {button.map((item) => {
           const { label, name } = item;
           const isActive = filter === item.label;
@@ -31,7 +30,7 @@ const ItemStatus = ({ onFilterChange, filter }) => {
           );
         })}
       </div>
-    </BrowserRouter>
+
   );
 };
 
