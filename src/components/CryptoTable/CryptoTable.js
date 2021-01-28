@@ -1,17 +1,25 @@
 import React, { useState } from "react";
-import ItemStatus from "../ItemStatus";
 import { FadeLoader } from "react-spinners";
+import { useHistory } from "react-router-dom";
+
+import ItemStatus from "../ItemStatus";
 import TableCell from "../TableCell";
 import Favorite from "../Favorite";
 import ButtonForFilter from "../ButtonForFilter";
 import { checkBoxes } from "../../constants/checkboxes";
+
 import "./crypto-table.css";
 
 const CryptoTable = (props) => {
-  const {currencyData, setcurrencyData, favorite, loaded}=props
+  const { currencyData, setcurrencyData, favorite, loaded } = props;
   const [filter, setFilter] = useState("all");
   const [changeColumns, setChangeColumns] = useState(false);
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
+
+  const history = useHistory();
+  const handleClick = () => {
+    history.push("/detailed");
+  };
 
   const changeFavorite = (id) => {
     const data = currencyData.map((item) => {
@@ -31,11 +39,9 @@ const CryptoTable = (props) => {
   const filterItems = (items) => {
     if (favorite) {
       return items.filter((item) => item.onFavorite);
-    }
-    else {
+    } else {
       return items;
     }
-
   };
 
   const visibleItems = filterItems(currencyData);
@@ -126,8 +132,11 @@ const CryptoTable = (props) => {
                       )}
                     </td>
                     {showCheckboxColumn[0].isChecked && (
-                      <td className="cell-size">
-                        <TableCell data={item.slug.toUpperCase()} />
+                      <td className="cell-size cursor-pointer">
+                        <TableCell
+                          onClick={handleClick}
+                          data={item.slug.toUpperCase()}
+                        />
                       </td>
                     )}
                     {showCheckboxColumn[1].isChecked && (

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CryptoTable from "../CryptoTable";
 import { getCurrencyData } from "../../services/getData";
 
+
 import "./main.css";
 
 function Main() {
