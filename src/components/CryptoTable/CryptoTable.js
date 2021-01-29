@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FadeLoader } from "react-spinners";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import ItemStatus from "../ItemStatus";
 import TableCell from "../TableCell";
@@ -11,29 +11,25 @@ import { checkBoxes } from "../../constants/checkboxes";
 import "./crypto-table.css";
 
 const CryptoTable = (props) => {
-  const { currencyData, setcurrencyData, favorite, loaded } = props;
+
+  const { currencyData, setCurrencyData, favorite, loaded } = props;
+
   const [filter, setFilter] = useState("all");
   const [changeColumns, setChangeColumns] = useState(false);
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
-
-  const history = useHistory();
-  const handleClick = () => {
-    history.push("/detailed");
-  };
 
   const changeFavorite = (id) => {
     const data = currencyData.map((item) => {
       if (id === item.id) {
         item.onFavorite = !item.onFavorite;
       }
-
       return item;
     });
     localStorage.setItem(
       "favorite",
       JSON.stringify(data.filter((item) => item.onFavorite))
     );
-    setcurrencyData(data);
+    setCurrencyData(data);
   };
 
   const filterItems = (items) => {
@@ -57,7 +53,8 @@ const CryptoTable = (props) => {
         (item) => {
           if (item["checked"]) {
             return true;
-          } else {
+          }
+          else {
             return false;
           }
         }
@@ -68,7 +65,6 @@ const CryptoTable = (props) => {
 
         return item;
       });
-
       setshowCheckboxColumn(newCheck);
     }
   };
@@ -96,7 +92,7 @@ const CryptoTable = (props) => {
           <table className="center">
             <thead>
               <tr>
-                {showStars() && <th className="border-off"></th>}
+                {showStars() && <th className="border-off"> </th>}
                 {showCheckboxColumn[0].isChecked && (
                   <th className="cell-size">
                     <TableCell data="Slug" />
@@ -133,10 +129,9 @@ const CryptoTable = (props) => {
                     </td>
                     {showCheckboxColumn[0].isChecked && (
                       <td className="cell-size cursor-pointer">
-                        <TableCell
-                          onClick={handleClick}
-                          data={item.slug.toUpperCase()}
-                        />
+                        <Link to={`/detailed/${item.id}`}>
+                          <TableCell data={item.slug.toUpperCase()} />
+                        </Link>
                       </td>
                     )}
                     {showCheckboxColumn[1].isChecked && (
@@ -155,7 +150,7 @@ const CryptoTable = (props) => {
 
               {changeColumns ? (
                 <tr>
-                  <td className="border-off"></td>
+                  <td className="border-off"> </td>
                   {showCheckboxColumn.map((item) => {
                     const { name, isChecked } = item;
                     return (

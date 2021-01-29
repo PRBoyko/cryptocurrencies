@@ -1,7 +1,7 @@
 .button-position {
-    width: fit-content;
-    margin-left: 20px;
-    margin-top: 10px;
-    display: flex;
-    background-color: grey;
+  width: fit-content;
+  margin-left: 20px;
+  margin-top: 10px;
+  display: flex;
+  background-color: grey;
 }

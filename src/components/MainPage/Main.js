@@ -3,16 +3,15 @@ import React, { useEffect, useState } from "react";
 import CryptoTable from "../CryptoTable";
 import { getCurrencyData } from "../../services/getData";
 
-
 import "./main.css";
 
 function Main() {
-  const [currencyData, setcurrencyData] = useState([]);
+  const [currencyData, setCurrencyData] = useState([]);
   const [loaded, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setcurrencyData(await getCurrencyData());
+      setCurrencyData(await getCurrencyData());
       setLoading(true);
     };
     fetchData();
@@ -21,7 +20,7 @@ function Main() {
   return (
     <CryptoTable
       currencyData={currencyData}
-      setcurrencyData={setcurrencyData}
+      setCurrencyData={setCurrencyData}
       loaded={loaded}
     />
   );

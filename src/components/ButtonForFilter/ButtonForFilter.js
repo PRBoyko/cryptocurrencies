@@ -7,12 +7,12 @@ const ButtonForFilter = (props) => {
   return (
     <div>
       <button
-        form = {form}
-        type = {type}
-        onSubmit = {onSubmit}
-        onClick = {onClick}
-        style = {style}
-        className = "btn button-position"
+        form={form}
+        type={type}
+        onSubmit={onSubmit}
+        onClick={onClick}
+        style={style}
+        className="btn button-position"
       >
         {btnText}
       </button>
