@@ -60,9 +60,8 @@ const CryptoTable = (props) => {
         (item) => {
           if (item["checked"]) {
             return true;
-          } else {
-            return false;
           }
+          return false;
         }
       );
 
@@ -81,7 +80,6 @@ const CryptoTable = (props) => {
         .map((item) => item.isChecked)
         .filter((item) => item !== false).length > 0
     );
-    return true;
   };
 
   return (
@@ -99,7 +97,7 @@ const CryptoTable = (props) => {
           <table className="center">
             <thead>
               <tr>
-                {showStars() && <th className="border-off"></th>}
+                {showStars() && <th className="border-off"> </th>}
                 {showCheckboxColumn[0].isChecked && (
                   <th className="cell-size">
                     <TableCell data="Slug" />
@@ -157,7 +155,7 @@ const CryptoTable = (props) => {
 
               {changeColumns ? (
                 <tr>
-                  <td className="border-off"></td>
+                  <td className="border-off"> </td>
                   {showCheckboxColumn.map((item) => {
                     const { name, isChecked } = item;
                     return (
