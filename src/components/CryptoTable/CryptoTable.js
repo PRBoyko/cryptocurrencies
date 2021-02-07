@@ -14,7 +14,7 @@ import "./crypto-table.css";
 
 const CryptoTable = (props) => {
 
-  const { currencyData, favorite, loaded } = props;
+  const { currencyData, changeFavoriteItem, favorite, loaded } = props;
 
   const [filter, setFilter] = useState("all");
   const [changeColumns, setChangeColumns] = useState(false);
@@ -31,7 +31,7 @@ const CryptoTable = (props) => {
       "favorite",
       JSON.stringify(data.filter((item) => item.onFavorite))
     );
-    changeFavorite(data);
+    changeFavoriteItem(data);
   };
 
   const filterItems = (items) => {
