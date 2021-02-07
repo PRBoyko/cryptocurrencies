@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { Link } from "react-router-dom";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 import ItemStatus from "../ItemStatus";
 import TableCell from "../TableCell";
@@ -13,10 +13,17 @@ import * as actions from "../../actions/actions";
 import "./crypto-table.css";
 
 const CryptoTable = (props) => {
+  const {
+    currencyData,
+    changeFavoriteItem,
+    filter,
+    setFilter,
+    favorite,
+    loaded,
+    changeColumns,
+    setChangeColumns,
+  } = props;
 
-  const { currencyData, changeFavoriteItem, filter, setFilter, favorite, loaded } = props;
-
-  const [changeColumns, setChangeColumns] = useState(false);
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
 
   const changeFavorite = (id) => {
@@ -45,7 +52,7 @@ const CryptoTable = (props) => {
 
   const saveData = () => {
     let checkStatus = showCheckboxColumn.map((item) => item.isChecked);
-    setChangeColumns(!changeColumns);
+    setChangeColumns(changeColumns);
 
     if (Array.from(document.querySelectorAll("input")).length < 1) {
       setshowCheckboxColumn(showCheckboxColumn);
@@ -54,8 +61,7 @@ const CryptoTable = (props) => {
         (item) => {
           if (item["checked"]) {
             return true;
-          }
-          else {
+          } else {
             return false;
           }
         }
@@ -93,7 +99,7 @@ const CryptoTable = (props) => {
           <table className="center">
             <thead>
               <tr>
-                {showStars() && <th className="border-off"> </th>}
+                {showStars() && <th className="border-off"></th>}
                 {showCheckboxColumn[0].isChecked && (
                   <th className="cell-size">
                     <TableCell data="Slug" />
@@ -151,7 +157,7 @@ const CryptoTable = (props) => {
 
               {changeColumns ? (
                 <tr>
-                  <td className="border-off"> </td>
+                  <td className="border-off"></td>
                   {showCheckboxColumn.map((item) => {
                     const { name, isChecked } = item;
                     return (
@@ -182,13 +188,13 @@ const CryptoTable = (props) => {
   );
 };
 
-const mapStateToProps = (state) =>{
-  return{
-    currencyData:state.dataApi,
+const mapStateToProps = (state) => {
+  return {
+    currencyData: state.dataApi,
     loaded: state.isLoaded,
-    filter: state.filter
-  }
-}
+    filter: state.filter,
+    changeColumns: state.changeColumns,
+  };
+};
 
-
-export default connect(mapStateToProps,actions)(CryptoTable);
+export default connect(mapStateToProps, actions)(CryptoTable);
