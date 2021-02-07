@@ -25,3 +25,10 @@ export const setChangeColumns = (changeColumns) => {
     payload: !changeColumns,
   };
 };
+
+export const setshowCheckboxColumn = (showCheckboxColumn) => {
+  return {
+    type: "CHANGE_CHECKBOXES",
+    payload: showCheckboxColumn,
+  };
+};

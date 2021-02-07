@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
+
 import CryptoTable from "../CryptoTable";
 
-const FavoriteTable = () => {
-  const [data, setData] = useState(
-    JSON.parse(localStorage.getItem("favorite")) || []
-  );
-
-  return (
-    <CryptoTable
-      currencyData={data}
-      setCurrencyData={setData}
-      loaded={true}
-      favorite={true}
-    />
-  );
+const FavoriteTable = ({ data }) => {
+  return <CryptoTable currencyData={data} loaded={true} favorite={true} />;
+};
+const mapStateToProps = (state) => {
+  return {
+    data: state.favoriteTable,
+  };
 };
 
-export default FavoriteTable;
+export default connect(mapStateToProps)(FavoriteTable);

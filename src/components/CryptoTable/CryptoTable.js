@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FadeLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -7,7 +7,6 @@ import ItemStatus from "../ItemStatus";
 import TableCell from "../TableCell";
 import Favorite from "../Favorite";
 import ButtonForFilter from "../ButtonForFilter";
-import { checkBoxes } from "../../constants/checkboxes";
 import * as actions from "../../actions/actions";
 
 import "./crypto-table.css";
@@ -22,9 +21,9 @@ const CryptoTable = (props) => {
     loaded,
     changeColumns,
     setChangeColumns,
+    showCheckboxColumn,
+    setshowCheckboxColumn,
   } = props;
-
-  const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
 
   const changeFavorite = (id) => {
     const data = currencyData.map((item) => {
@@ -82,6 +81,7 @@ const CryptoTable = (props) => {
         .map((item) => item.isChecked)
         .filter((item) => item !== false).length > 0
     );
+    return true;
   };
 
   return (
@@ -194,6 +194,7 @@ const mapStateToProps = (state) => {
     loaded: state.isLoaded,
     filter: state.filter,
     changeColumns: state.changeColumns,
+    showCheckboxColumn: state.showCheckboxColumn,
   };
 };
 
