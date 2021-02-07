@@ -1,29 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 
 import CryptoTable from "../CryptoTable";
 import { getCurrencyData } from "../../services/getData";
+import {connect} from 'react-redux';
 
 import "./main.css";
+import * as actions from "../../actions/actions";
 
-function Main() {
-  const [currencyData, setCurrencyData] = useState([]);
-  const [loaded, setLoading] = useState(false);
+
+function Main({currencyData, isLoaded,receiveData}) {
 
   useEffect(() => {
     const fetchData = async () => {
-      setCurrencyData(await getCurrencyData());
-      setLoading(true);
+      receiveData(await getCurrencyData());
     };
     fetchData();
   }, []);
 
   return (
-    <CryptoTable
-      currencyData={currencyData}
-      setCurrencyData={setCurrencyData}
-      loaded={loaded}
-    />
+
+      <CryptoTable
+          currencyData={currencyData}
+          loaded={isLoaded}
+      />
   );
 }
 
-export default Main;
+const mapStateToProps = (state) =>{
+  return{
+    currencyData:state.dataApi,
+    isLoaded: state.isLoaded
+  }
+}
+
+export default connect(mapStateToProps,actions)(Main);

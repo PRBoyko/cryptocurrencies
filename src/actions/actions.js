@@ -4,3 +4,10 @@ export const receiveData = (json) => {
         payload: json
        }
 }
+
+export const changeFavorite=()=>{
+    return{
+        type: 'CHANGE_FAVORITE'
+    }
+
+}
