@@ -14,9 +14,8 @@ import "./crypto-table.css";
 
 const CryptoTable = (props) => {
 
-  const { currencyData, changeFavoriteItem, favorite, loaded } = props;
+  const { currencyData, changeFavoriteItem, filter, setFilter, favorite, loaded } = props;
 
-  const [filter, setFilter] = useState("all");
   const [changeColumns, setChangeColumns] = useState(false);
   const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
 
@@ -186,7 +185,8 @@ const CryptoTable = (props) => {
 const mapStateToProps = (state) =>{
   return{
     currencyData:state.dataApi,
-    loaded: state.isLoaded
+    loaded: state.isLoaded,
+    filter: state.filter
   }
 }
 

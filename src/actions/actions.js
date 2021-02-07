@@ -12,3 +12,11 @@ export const changeFavoriteItem=(data)=>{
     }
 
 }
+
+export const setFilter =(filter)=>{
+    return{
+        type: 'CHANGE_FILTER',
+        payload: filter
+    }
+
+}
