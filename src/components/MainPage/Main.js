@@ -8,7 +8,7 @@ import "./main.css";
 import * as actions from "../../actions/actions";
 
 
-function Main({currencyData, isLoaded,receiveData}) {
+function Main({receiveData}) {
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,18 +19,10 @@ function Main({currencyData, isLoaded,receiveData}) {
 
   return (
 
-      <CryptoTable
-          currencyData={currencyData}
-          loaded={isLoaded}
-      />
+      <CryptoTable />
   );
 }
 
-const mapStateToProps = (state) =>{
-  return{
-    currencyData:state.dataApi,
-    isLoaded: state.isLoaded
-  }
-}
+const mapStateToProps = (state) =>({state:state})
 
 export default connect(mapStateToProps,actions)(Main);

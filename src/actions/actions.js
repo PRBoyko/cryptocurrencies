@@ -5,9 +5,10 @@ export const receiveData = (json) => {
        }
 }
 
-export const changeFavorite=()=>{
+export const changeFavorite=(data)=>{
     return{
-        type: 'CHANGE_FAVORITE'
+        type: 'CHANGE_FAVORITE',
+        payload: data
     }
 
 }

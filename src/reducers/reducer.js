@@ -3,7 +3,7 @@ const reducer = (state = {dataApi:[], isLoaded:false}, actions) => {
         case  'RECEIVE_DATA':
           return {dataApi:actions.payload,isLoaded:true };
         case  'CHANGE_FAVORITE':
-            return state;
+            return actions.payload;
         default:
             return state
     }

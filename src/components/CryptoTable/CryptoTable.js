@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { FadeLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
 
 import ItemStatus from "../ItemStatus";
 import TableCell from "../TableCell";
 import Favorite from "../Favorite";
 import ButtonForFilter from "../ButtonForFilter";
 import { checkBoxes } from "../../constants/checkboxes";
+import * as actions from "../../actions/actions";
 
 import "./crypto-table.css";
 
 const CryptoTable = (props) => {
 
-  const { currencyData, setCurrencyData, favorite, loaded } = props;
+  const { currencyData, favorite, loaded } = props;
 
   const [filter, setFilter] = useState("all");
   const [changeColumns, setChangeColumns] = useState(false);
@@ -29,7 +31,7 @@ const CryptoTable = (props) => {
       "favorite",
       JSON.stringify(data.filter((item) => item.onFavorite))
     );
-    setCurrencyData(data);
+    changeFavorite(data);
   };
 
   const filterItems = (items) => {
@@ -181,4 +183,12 @@ const CryptoTable = (props) => {
   );
 };
 
-export default CryptoTable;
+const mapStateToProps = (state) =>{
+  return{
+    currencyData:state.dataApi,
+    loaded: state.isLoaded
+  }
+}
+
+
+export default connect(mapStateToProps,actions)(CryptoTable);
