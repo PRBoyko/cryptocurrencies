@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
+import { connect } from "react-redux";
 
 import { getDetailedData } from "../../services/getDetailedData";
 import TableCell from "../TableCell";
 import ButtonForFilter from "../ButtonForFilter";
+import * as actions from "../../actions/actions";
 
 import { useParams } from "react-router";
 import "./detailed-info.css";
 
-const DetailedInfo = () => {
-  const [setData, setcurrencyData] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-
+const DetailedInfo = ({ receiveDetailData, loaded, setData }) => {
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getDetailedData(id);
-
       if (data) {
-        setcurrencyData(data);
+        receiveDetailData(data, loaded);
+      } else {
+        receiveDetailData([], loaded);
       }
     };
-    setLoaded(true);
     fetchData();
   }, []);
 
@@ -61,7 +60,9 @@ const DetailedInfo = () => {
           <tbody>
             <tr>
               <th>
-                <TableCell data={setData.open} />
+                <TableCell data={setData.open}>
+                  {console.log(setData)}
+                </TableCell>
               </th>
               <th>
                 <TableCell data={setData.high} />
@@ -83,4 +84,9 @@ const DetailedInfo = () => {
   );
 };
 
-export default DetailedInfo;
+const mapStateToProps = (state) => ({
+  setData: state.detailedInfo.data,
+  loaded: state.detailedInfo.loaded,
+});
+
+export default connect(mapStateToProps, actions)(DetailedInfo);

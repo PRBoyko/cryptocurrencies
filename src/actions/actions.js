@@ -32,3 +32,11 @@ export const setshowCheckboxColumn = (showCheckboxColumn) => {
     payload: showCheckboxColumn,
   };
 };
+
+export const receiveDetailData = (json, loaded) => {
+  loaded = true;
+  return {
+    type: "RECEIVE_DETAILED_DATA",
+    payload: { data: json, loaded: loaded },
+  };
+};

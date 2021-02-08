@@ -7,6 +7,7 @@ const initialState = {
   changeColumns: false,
   showCheckboxColumn: checkBoxes,
   favoriteTable: JSON.parse(localStorage.getItem("favorite")) || [],
+  detailedInfo: { data: [], loaded: false },
 };
 
 const reducer = (state = initialState, actions) => {
@@ -21,6 +22,9 @@ const reducer = (state = initialState, actions) => {
       return { ...state, changeColumns: actions.payload };
     case "CHANGE_CHECKBOXES":
       return { ...state, showCheckboxColumn: actions.payload };
+    case "RECEIVE_DETAILED_DATA":
+      return { ...state, detailedInfo: actions.payload };
+
     default:
       return state;
   }
