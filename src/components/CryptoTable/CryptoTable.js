@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { FadeLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import ItemStatus from "../ItemStatus";
 import TableCell from "../TableCell";
 import Favorite from "../Favorite";
 import ButtonForFilter from "../ButtonForFilter";
-import { checkBoxes } from "../../constants/checkboxes";
+import * as actions from "../../actions/actions";
 
 import "./crypto-table.css";
 
 const CryptoTable = (props) => {
-
-  const { currencyData, setCurrencyData, favorite, loaded } = props;
-
-  const [filter, setFilter] = useState("all");
-  const [changeColumns, setChangeColumns] = useState(false);
-  const [showCheckboxColumn, setshowCheckboxColumn] = useState(checkBoxes);
+  const {
+    currencyData,
+    changeFavoriteItem,
+    filter,
+    setFilter,
+    favorite,
+    loaded,
+    changeColumns,
+    setChangeColumns,
+    showCheckboxColumn,
+    setshowCheckboxColumn,
+  } = props;
 
   const changeFavorite = (id) => {
     const data = currencyData.map((item) => {
@@ -29,7 +36,7 @@ const CryptoTable = (props) => {
       "favorite",
       JSON.stringify(data.filter((item) => item.onFavorite))
     );
-    setCurrencyData(data);
+    changeFavoriteItem(data);
   };
 
   const filterItems = (items) => {
@@ -44,7 +51,7 @@ const CryptoTable = (props) => {
 
   const saveData = () => {
     let checkStatus = showCheckboxColumn.map((item) => item.isChecked);
-    setChangeColumns(!changeColumns);
+    setChangeColumns(changeColumns);
 
     if (Array.from(document.querySelectorAll("input")).length < 1) {
       setshowCheckboxColumn(showCheckboxColumn);
@@ -54,9 +61,7 @@ const CryptoTable = (props) => {
           if (item["checked"]) {
             return true;
           }
-          else {
-            return false;
-          }
+          return false;
         }
       );
 
@@ -181,4 +186,14 @@ const CryptoTable = (props) => {
   );
 };
 
-export default CryptoTable;
+const mapStateToProps = (state) => {
+  return {
+    currencyData: state.dataApi,
+    loaded: state.isLoaded,
+    filter: state.filter,
+    changeColumns: state.changeColumns,
+    showCheckboxColumn: state.showCheckboxColumn,
+  };
+};
+
+export default connect(mapStateToProps, actions)(CryptoTable);
