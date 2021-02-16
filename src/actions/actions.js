@@ -1,34 +1,43 @@
+import {
+  changeColumns,
+  changeFilter,
+  changeCheckBoxes,
+  receiveDetailedData,
+  receiveDataFromAPI,
+  updateFavorite,
+} from "../constants/varForActions";
+
 export const receiveData = (json) => {
   return {
-    type: "RECEIVE_DATA",
+    type: receiveDataFromAPI,
     payload: json,
   };
 };
 
 export const changeFavoriteItem = (data) => {
   return {
-    type: "CHANGE_FAVORITE",
+    type: updateFavorite,
     payload: data,
   };
 };
 
 export const setFilter = (filter) => {
   return {
-    type: "CHANGE_FILTER",
+    type: changeFilter,
     payload: filter,
   };
 };
 
-export const setChangeColumns = (changeColumns) => {
+export const setChangeColumns = (change) => {
   return {
-    type: "CHANGE_COLUMNS",
-    payload: !changeColumns,
+    type: changeColumns,
+    payload: !change,
   };
 };
 
 export const setshowCheckboxColumn = (showCheckboxColumn) => {
   return {
-    type: "CHANGE_CHECKBOXES",
+    type: changeCheckBoxes,
     payload: showCheckboxColumn,
   };
 };
@@ -36,7 +45,7 @@ export const setshowCheckboxColumn = (showCheckboxColumn) => {
 export const receiveDetailData = (json, loaded) => {
   loaded = true;
   return {
-    type: "RECEIVE_DETAILED_DATA",
+    type: receiveDetailedData,
     payload: { data: json, loaded: loaded },
   };
 };

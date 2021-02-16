@@ -8,7 +8,7 @@ const FavoriteTable = ({ data }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    data: state.favoriteTable,
+    data: state.changeData.favoriteTable,
   };
 };
 

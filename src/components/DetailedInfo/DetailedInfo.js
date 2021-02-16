@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import { connect } from "react-redux";
@@ -85,8 +85,8 @@ const DetailedInfo = ({ receiveDetailData, loaded, setData }) => {
 };
 
 const mapStateToProps = (state) => ({
-  setData: state.detailedInfo.data,
-  loaded: state.detailedInfo.loaded,
+  setData: state.getData.detailedInfo.data,
+  loaded: state.getData.detailedInfo.loaded,
 });
 
 export default connect(mapStateToProps, actions)(DetailedInfo);

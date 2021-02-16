@@ -188,11 +188,11 @@ const CryptoTable = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    currencyData: state.dataApi,
-    loaded: state.isLoaded,
-    filter: state.filter,
-    changeColumns: state.changeColumns,
-    showCheckboxColumn: state.showCheckboxColumn,
+    currencyData: state.getData.dataApi,
+    loaded: state.getData.isLoaded,
+    filter: state.changeData.filter,
+    changeColumns: state.changeData.changeColumns,
+    showCheckboxColumn: state.changeData.showCheckboxColumn,
   };
 };
 
